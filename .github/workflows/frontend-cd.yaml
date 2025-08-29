@@ -83,7 +83,7 @@ jobs:
     - name: Build and Push Docker Image
       working-directory: starter/frontend
       run: |
-        docker build --build-arg=REACT_APP_MOVIE_API_URL=http://localhost:5001 --tag 441313828897.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG .
+        docker build --build-arg=REACT_APP_MOVIE_API_URL=http://a5dfc366c35f34061ab0006947b3dc6f-712548253.us-east-1.elb.amazonaws.com --tag 441313828897.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG .
         docker push 441313828897.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG
 
     - name: Configure Kubeconfig
@@ -93,5 +93,5 @@ jobs:
     - name: Deploy Docker Image to Amazon EKS
       working-directory: starter/frontend/k8s
       run: |
-        kustomize edit set image frontend=669172573612.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG
+        kustomize edit set image frontend=441313828897.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG
         kustomize build | kubectl apply -f -
